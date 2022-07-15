@@ -1,21 +1,27 @@
 package main
 
 import (
-	validatorv10 "github.com/go-playground/validator/v10"
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/swagger"
 	"go-pkg-oriented-design/internal/book"
 	"go-pkg-oriented-design/internal/platform/config"
 	"go-pkg-oriented-design/internal/platform/database"
 	"go-pkg-oriented-design/internal/platform/http"
 	"go-pkg-oriented-design/internal/platform/identifier"
-	"go-pkg-oriented-design/internal/platform/swagger"
 	"go-pkg-oriented-design/internal/platform/validator"
 	"go-pkg-oriented-design/internal/user"
 	"log"
+
+	validatorv10 "github.com/go-playground/validator/v10"
+	"github.com/gofiber/fiber/v2"
 )
 
 func main() {
-	swagger.InitSwagger()
+	swagger.New(swagger.Config{
+		Title:        "Swagger API",
+		DeepLinking:  false,
+		DocExpansion: "none",
+	})
+
 	envConfig := config.SetupEnvFile()
 
 	mongo := database.InitMongo(envConfig.MongoAddress, envConfig.DatabaseName)
