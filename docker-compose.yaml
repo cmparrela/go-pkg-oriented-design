@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  mongo:
+    container_name: mongo.pkg-design-example
+    image: mongo:latest
+    environment:
+      - MONGO_DATA_DIR=/data/db
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - 27017:27017
+
+volumes:
+  mongodb_data:
+
+networks:
+  bubble:
+    external: true
